@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/sharding_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5  # 最小空闲连接数
+      maximum-pool-size: 20  # 最大连接池大小
+      idle-timeout: 60000  # 连接最大空闲时间（毫秒），超时则被回收
+      max-lifetime: 1800000  # 连接的最大生命周期（毫秒）
+      connection-timeout: 30000  # 连接超时时间（毫秒）
+      validation-timeout: 5000  # 验证超时时间（毫秒）
+      keepalive-time: 30000  # 设置心跳检测时间（毫秒），定期发送 `SELECT 1`
+      connection-test-query: SELECT 1  # 连接验证 SQL 语句
+
+#spring:
+#  cache:
+#    type: none
+#  datasource:
+#    names: db0,db1
+#    # DataSource configuration for sharding database
+#    db0:
+#      type: com.zaxxer.hikari.HikariDataSource
+#      driverClassName: com.mysql.cj.jdbc.Driver
+#      jdbcUrl: jdbc:mysql://localhost:3306/db0?useSSL=false&serverTimezone=UTC
+#      username: root
+#      password: 123456
+#
+#    db1:
+#      type: com.zaxxer.hikari.HikariDataSource
+#      driverClassName: com.mysql.cj.jdbc.Driver
+#      jdbcUrl: jdbc:mysql://localhost:3306/db1?useSSL=false&serverTimezone=UTC
+#      username: root
+#      password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  # 驼峰
+  configuration:
+    useInformationSchema: false
+    map-underscore-to-camel-case: true
